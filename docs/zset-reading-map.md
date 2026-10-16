@@ -6,7 +6,7 @@
 
 ## 跳表接口对照
 
-| MiniRedis 接口 | 状态 | Redis 对应 | 位置 (t_zset.c) |
+| LeapRedis 接口 | 状态 | Redis 对应 | 位置 (t_zset.c) |
 |---|---|---|---|
 | `SkipList()` | ✓ 已写 | `zslCreate` + `zslCreateNode` | :103 + :86 |
 | `~SkipList()` | ✓ 已写 | `zslFree` + `zslFreeNode` | :146 + :134 |
@@ -24,7 +24,7 @@
 
 ## 区间组辅助
 
-| MiniRedis | Redis 对应 | 位置 |
+| LeapRedis | Redis 对应 | 位置 |
 |---|---|---|
 | `ScoreRange{min,max,minExclusive,maxExclusive}` | `zrangespec{min,max,minex,maxex}` | redis.h:1705-1716 |
 | 边界判断(内部函数或直接内联) | `zslValueGteMin` / `zslValueLteMax` | t_zset.c :402 / :413 |
@@ -45,7 +45,7 @@
 ## 读源码注意
 
 1. **骨架三件套**:层循环下降 / `rank += span` 沿路累加 / 停下后判等——insert、delete、zslGetRank 共用同一套,读第三个时最省力。
-2. **判等细节**:`zslGetRank` 只用 `equalStringObjects` 比元素不比 score(zset 元素唯一);MiniRedis 的 Delete 连 score 一起比,是裸跳表层的防御。
-3. **C vs C++**:`robj*` 带引用计数(`decrRefCount`),MiniRedis 用 SDS 值语义——所有 refcount 相关行直接跳过。
+2. **判等细节**:`zslGetRank` 只用 `equalStringObjects` 比元素不比 score(zset 元素唯一);LeapRedis 的 Delete 连 score 一起比,是裸跳表层的防御。
+3. **C vs C++**:`robj*` 带引用计数(`decrRefCount`),LeapRedis 用 SDS 值语义——所有 refcount 相关行直接跳过。
 4. **比较函数**:`compareStringObjects` ↔ `SDS::compare`,语义相同。
-5. **随机层**:`zslRandomLevel` 循环内不卡上限、末尾截断;MiniRedis 循环内卡上限——行为等价,都返回 1..32。
+5. **随机层**:`zslRandomLevel` 循环内不卡上限、末尾截断;LeapRedis 循环内卡上限——行为等价,都返回 1..32。

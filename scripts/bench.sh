@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# MiniRedis 压测。必须在 Linux 容器里跑(要 redis-benchmark 和服务器的 epoll 侧):
+# LeapRedis 压测。必须在 Linux 容器里跑(要 redis-benchmark 和服务器的 epoll 侧):
 #   docker exec kv-dev bash /miniredis/scripts/bench.sh
 #
 # 可调环境变量:

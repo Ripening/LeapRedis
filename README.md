@@ -1,6 +1,6 @@
-# MiniRedis
+# LeapRedis
 
-[![CI](https://github.com/Ripening/MiniRedis/actions/workflows/ci.yml/badge.svg)](https://github.com/Ripening/MiniRedis/actions/workflows/ci.yml)
+[![CI](https://github.com/Ripening/LeapRedis/actions/workflows/ci.yml/badge.svg)](https://github.com/Ripening/LeapRedis/actions/workflows/ci.yml)
 
 用 C++17 从零实现的单线程 Redis：自写的 RESP2 协议解析器、跳表有序集合、AOF 持久化，
 网络层基于自写的 myMuduo（epoll 事件循环）。**不依赖 hiredis、redis-plus-plus、boost**。
